@@ -27,11 +27,6 @@ export const App = () => {
         break;
     }
   };
-  const onBtnClick = feedback => {
-    setState(prevState => ({
-      [feedback]: prevState[feedback] + 1,
-    }));
-  };
 
   const countTotalFeedback = () => {
     return good + neutral + bad;
@@ -42,13 +37,18 @@ export const App = () => {
     return Math.round((good * 100) / total);
   };
 
+  const feedbacks = ['good', 'neutral', 'bad'];
+
   return (
     <>
       <Section title="Please leave feedback">
-        <FeedbackOptions options={Object.keys()} onBtnClick={onBtnClick} />
+        <FeedbackOptions
+          options={feedbacks}
+          onBtnClick={handleFeedbackChange}
+        />
       </Section>
       <Section title="Statistics">
-        {this.countTotalFeedback() > 0 ? (
+        {countTotalFeedback() > 0 ? (
           <Statistics
             good={good}
             neutral={neutral}
